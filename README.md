@@ -1,70 +1,68 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# _Something_ relates to _Anything_
 
-In the project directory, you can run:
+A project I am personally using to store things more easily in a dynamic way that makes it searchable. The models aim to be very plain and straight forward and should not be stopping me from storing data. Basically it consist of 2 types: Something and Anything. Something is the entry point for posts. It can then be related to a number of Anythings. Beside that I also have Tags so I can tag my Somethings. In future, a Tag might be an Anything but need to start somewhere.
 
-### `npm start`
+I am using create-react-app and in parallell with that, an Express server. In ordet to have them work together I followed this blog post:
+https://levelup.gitconnected.com/create-a-react-app-with-an-express-backend-24740b0a6f5e
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Tech stack
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+A simple list of things being used in this project.
 
-### `npm test`
+* [Node](https://nodejs.org)
+* [Express](https://expressjs.com)
+* [React](https://reactjs.org) with [Create React App](https://create-react-app.dev)
+* [turtle-ui](https://www.npmjs.com/package/turtle-ui) (with modifications)
+* [skeleton](http://getskeleton.com/) (with modifications)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Deployment
 
-### `npm run build`
+A Postgres DB is required and the environment variable `DB_CONNECTIONSTRING` need to be set. The database specified need to exists (dah).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+With that requirement, to build and start your server in production mode:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Install Depencies
 
-### `npm run eject`
+All dependecies (including the separate ones in `./client/`) are installed using:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm install
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Development
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To start your application locally, you need a DB (add to .env) and start Create React App.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Database
 
-## Learn More
+You need a DB to connect to. Surprise!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you have docker installed, you can start one (deamonized) by:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+docker run --rm --name postgres-local -e POSTGRES_PASSWORD=docker -d -p 5678:5432 -v $HOME/.docker-data/postgres:/var/lib/postgresql/data postgres
+```
 
-### Code Splitting
+Then edit/add the .env file and set the DB Connectionstring:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+DB_CONNECTIONSTRING=postgres://postgres:docker@localhost:5678/somethinganything
+```
 
-### Analyzing the Bundle Size
+## Start app
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The client is being built using [Create React App](https://create-react-app.dev). To start server and watching files+hot reload of client side code:
 
-### Making a Progressive Web App
+```
+npm run dev # Start both server and Create React app. Should be enough in most cases.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Optionally start separetly:
+npm run server # Starts only server
+npm run client # Starts only Create React App
+```

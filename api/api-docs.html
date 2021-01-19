@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="API Documentation for SomethingAnything." />
+
+  <!-- CSS -->
+  <style type="text/css">
+    body {
+      color: #444;
+    }
+  </style>
+
+  <title>API docs for SomethingAnything</title>
+</head>
+
+<body>
+  <h1>API Documentation</h1>
+
+  <h2>Types</h2>
+
+  List of all types and some example formats.
+
+  <h3>&lt;Something&gt;</h3>
+
+  <code>
+    { id: 43, title: "My Something", private: null, createdAt: "2021-01-17T23:00:00.127Z", updatedAt: "2021-01-17T23:00:00.127Z", userId: null, anythings: [&lt;Anything&gt;], tags: [&lt;Tag&gt;] }
+  </code>
+
+  <h3>&lt;Anything&gt;</h3>
+
+  <code>
+    { id: 456, title: 'My Anything' }
+  </code>
+
+  <h3>&lt;Tag&gt;</h3>
+
+  <code>
+    { id: 23, title: "My Tag", color: "#483D8B" }
+  </code>
+
+  <br />
+  <hr />
+  <h2>Endpoints</h2>
+  <table border="1" cellspacing="0" cellpadding="10">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Path</th>
+        <th>Description</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GET</td>
+        <td>/something</td>
+        <td>Get a list of Somethings.</td>
+        <td>
+          Returns array of &lt;Something&gt;.<br />
+          <ul>
+            <li><b>limit</b>&nbsp;<i>(optional)</i>&nbsp;<i>(default 10)</i> - Max number of records.</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>GET</td>
+        <td>/something/:id</td>
+        <td>Get a single Something.</td>
+        <td>
+          Returns a &lt;Something&gt;.<br />
+        </td>
+      </tr>
+
+      <tr>
+        <td>GET</td>
+        <td>/anything</td>
+        <td>Get a list of Anythings.</td>
+        <td>
+          Returns array of &lt;Anything&gt;.<br/>
+          <ul>
+            <li><b>limit</b>&nbsp;<i>(optional)</i>&nbsp;<i>(default 10)</i> - Max number of records.</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>GET</td>
+        <td>/anything/:id</td>
+        <td>Get a single Anything.</td>
+        <td>
+          Returns a &lt;Anything&gt;.<br />
+        </td>
+      </tr>
+
+      <tr>
+        <td>GET</td>
+        <td>/tag</td>
+        <td>Get a list of Tags.</td>
+        <td>
+          Returns array of &lt;Tag&gt;.<br/>
+          <ul>
+            <li><b>limit</b>&nbsp;<i>(optional)</i>&nbsp;<i>(default 10)</i> - Max number of records.</li>
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>GET</td>
+        <td>/tag/:id</td>
+        <td>Get a single Tag.</td>
+        <td>
+          Returns a &lt;Tag&gt;.<br />
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</body>
+
+</html>
