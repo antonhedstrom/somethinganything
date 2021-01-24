@@ -1,4 +1,10 @@
 
+# TDB
+* Add Tag to Something
+* Add Tag to Anything
+* Support basic types of Anything: Markdown + Date?
+* Add Search
+
 # 0.2.0 (2021-01-24)
 * Added image to Top bar and changed color of Navigation.
 * Added default route handler ('/')
