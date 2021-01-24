@@ -11,8 +11,8 @@ https://levelup.gitconnected.com/create-a-react-app-with-an-express-backend-2474
 
 A simple list of things being used in this project.
 
-* [Node](https://nodejs.org)
-* [Express](https://expressjs.com)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Node](https://nodejs.org) with [Express](https://expressjs.com)
 * [React](https://reactjs.org) with [Create React App](https://create-react-app.dev)
 * [turtle-ui](https://www.npmjs.com/package/turtle-ui) (with modifications)
 * [skeleton](http://getskeleton.com/) (with modifications)
