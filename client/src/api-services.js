@@ -12,8 +12,9 @@ export function getSomethings(params) {
 export function createSomething(data) {
   return axios.post('/api/something', data);
 }
-export function updateSomething(id, data) {
-  return axios.post(`/api/something/${id}`, data);
+export function updateSomething(data) {
+  const { id, ...values } = data;
+  return axios.patch(`/api/something/${id}`, values);
 }
 export function removeSomething(id) {
   return axios.delete(`/api/something/${id}`);
@@ -31,8 +32,9 @@ export function getAnythings(params) {
 export function createAnything(data) {
   return axios.post('/api/anything', data);
 }
-export function updateAnything(id, data) {
-  return axios.post(`/api/anything/${id}`, data);
+export function updateAnything(data) {
+  const { id, ...values } = data;
+  return axios.patch(`/api/anything/${id}`, values);
 }
 export function removeAnything(id) {
   return axios.delete(`/api/anything/${id}`);
@@ -50,8 +52,9 @@ export function getTags(params) {
 export function createTag(data) {
   return axios.post('/api/tag', data);
 }
-export function updateTag(id, data) {
-  return axios.post(`/api/tag/${id}`, data);
+export function updateTag(data) {
+  const { id, ...values} = data;
+  return axios.patch(`/api/tag/${id}`, values);
 }
 export function removeTag(id) {
   return axios.delete(`/api/tag/${id}`);

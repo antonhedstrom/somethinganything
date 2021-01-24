@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
-  background-color: #003049;
+  background-color: #262610;
 `;
 
 const NavList = styled.ul`

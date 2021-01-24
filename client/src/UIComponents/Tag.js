@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import styled, { css } from 'styled-components';
 
 import { getFontColor } from '../constants';

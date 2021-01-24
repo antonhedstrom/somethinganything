@@ -14,6 +14,7 @@ import theme from './theme';
 import Topbar from './Containers/Layout/Topbar';
 import Main from './Containers/Layout/Main';
 import Navigation from './Containers/Layout/Navigation';
+import Footer from './Containers/Layout/Footer';
 import NotFound from './Containers/Layout/NotFound';
 import SomethingsView from './Containers/SomethingsView';
 import AnythingsView from './Containers/AnythingsView';
@@ -23,6 +24,7 @@ import DesignGuide from './Containers/DesignGuide';
 import SomethingDetails from './Components/SomethingDetails';
 import AnythingDetails from './Components/AnythingDetails';
 import TagDetails from './Components/TagDetails';
+import TagEdit from './Components/TagEdit';
 
 function App() {
   const queryClient = new QueryClient();
@@ -31,10 +33,16 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeContext.Provider value={theme}>
         <Router>
-          <Topbar />
-          <Navigation />
+          <Topbar>
+            <Navigation />
+          </Topbar>
+
           <Main className="container">
             <Switch>
+              <Route exact path="/">
+                <SomethingsView />
+              </Route>
+
               {/* Somethings */}
               <Route exact path="/somethings">
                 <SomethingsView />
@@ -55,8 +63,11 @@ function App() {
               <Route exact path="/tags">
                 <TagsView />
               </Route>
-              <Route path="/tags/:id">
+              <Route exact path="/tags/:id">
                 {({ match }) => <TagDetails id={match.params.id} />}
+              </Route>
+              <Route exact path="/tags/:id/edit">
+                {({ match }) => <TagEdit id={match.params.id} />}
               </Route>
 
               {/* Design */}
@@ -71,6 +82,11 @@ function App() {
             </Switch>
 
           </Main>
+
+          <div className="container">
+            <hr style={{ marginBottom: 0 }} />
+            <Footer />
+          </div>
         </Router>
       </ThemeContext.Provider>
 

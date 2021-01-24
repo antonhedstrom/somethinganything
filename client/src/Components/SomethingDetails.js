@@ -8,7 +8,6 @@ import AnythingAdd from '../Components/AnythingAdd';
 import { TagTile } from './StyledComponents';
 import FormattedDate from './FormattedDate';
 import { getSomething } from '../api-services';
-
 const StyledDate = styled.div`
   color: ${({ theme }) => theme.color.N60};
 `;

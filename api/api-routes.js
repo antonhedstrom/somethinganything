@@ -60,6 +60,7 @@ router.all('*', (req, res, next) => {
   res.status(404).json({
     message: 'Path not found',
     path: req.originalUrl,
+    method: req.method.toUpperCase(),
     ts: new Date(),
   });
 });

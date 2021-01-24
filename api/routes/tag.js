@@ -51,6 +51,14 @@ router.post('/', async (req, res, next) => {
   res.send(newTag);
 });
 
+router.patch('/:id', async (req, res, next) => {
+  const updatedTag = await res.locals.db.tag.update({
+    title: req.body.title,
+    color: req.body.color,
+  }, { where: { id: req.params.id } });
+  res.send(updatedTag);
+});
+
 router.delete('/:id', async (req, res, next) => {
   try {
     await res.locals.db.tag.destroy({
