@@ -1,7 +1,8 @@
 
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 
 import { Button, Input } from '../UIComponents';
 import { createAnything } from '../api-services';
@@ -16,22 +17,16 @@ const InputContainer = styled.div`
   }
 `;
 
-function AnythingAdd({ somethingId, ...rest }) {
+function AnythingAdd({ somethingId, onComplete, ...rest }) {
   const [type, setType] = useState('');
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
-  const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(createAnything, {
     onSuccess: ({ data: createdItem }) => {
-      queryClient.setQueryData('anythings', (cachedQuery) => {
-        return {
-          ...cachedQuery,
-          data: [createdItem, ...cachedQuery.data],
-        };
-      });
       setType('');
       setValue1('');
       setValue2('');
+      onComplete(createdItem);
     },
   });
 
@@ -87,5 +82,13 @@ function AnythingAdd({ somethingId, ...rest }) {
     </div>
   );
 }
+
+AnythingAdd.defaultProps = {
+  onComplete: () => {},
+};
+
+AnythingAdd.propTypes = {
+  onComplete: PropTypes.func,
+};
 
 export default AnythingAdd;

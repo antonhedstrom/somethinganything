@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  color: ${({ theme }) => theme.color.danger};
+  color: ${({ theme }) => theme.colors.danger};
   padding: ${({ theme }) => theme.spacing.medium};
-  border: 1px ${({ theme }) => theme.color.danger} solid;
+  border: 1px ${({ theme }) => theme.colors.danger} solid;
 `;
 
 export function parseAxiosError(axiosError) {

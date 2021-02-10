@@ -5,15 +5,16 @@ import { useQuery } from 'react-query';
 
 import ErrorContainer, { parseAxiosError } from '../Containers/Layout/ErrorContainer';
 import AnythingAdd from '../Components/AnythingAdd';
-import { TagTile } from './StyledComponents';
+import { Tag } from '../UIComponents';
 import FormattedDate from './FormattedDate';
 import { getSomething } from '../api-services';
+
 const StyledDate = styled.div`
-  color: ${({ theme }) => theme.color.N60};
+  color: ${({ theme }) => theme.colors.N60};
 `;
 
 function SomethingDetails({ id, ...rest }) {
-  const { isLoading, error, data: { data: something } = {} } = useQuery(['something', id], () => getSomething(id));
+  const { isLoading, refetch, error, data: { data: something } = {} } = useQuery(['something', id], () => getSomething(id));
 
   if (isLoading) {
     return null;
@@ -34,23 +35,27 @@ function SomethingDetails({ id, ...rest }) {
 
       {something.tags.map((tag) => (
         <Link to={`/tags/${tag.id}`} key={`tag-${tag.id}`} >
-          <TagTile color={tag.color}>
+          <Tag color={tag.color}>
             {tag.title}
-          </TagTile>
+          </Tag>
         </Link>
       ))}
 
       <br />
       <h2>Related Anythings</h2>
-      <AnythingAdd somethingId={something.id} />
+      <AnythingAdd somethingId={something.id} onComplete={refetch} />
       {something.anythings.map((anything) => (
         <div className="row" key={`something-anything-${anything.id}`}>
           <div className="three columns">
-            {anything.type}
+            <i>{anything.type}</i>
           </div>
-          <div className="nine columns">
+          <div className="seven columns">
             {anything.value1}
+            <br/>
             {anything.value2}
+          </div>
+          <div className="two columns">
+            <Link to={`/anythings/${anything.id}`}>View</Link>
           </div>
         </div>
       ))}

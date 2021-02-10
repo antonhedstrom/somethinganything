@@ -21,6 +21,7 @@ import AnythingsView from './Containers/AnythingsView';
 import TagsView from './Containers/TagsView';
 import DesignGuide from './Containers/DesignGuide';
 
+import SearchBar from './Components/SearchBar';
 import SomethingDetails from './Components/SomethingDetails';
 import AnythingDetails from './Components/AnythingDetails';
 import TagDetails from './Components/TagDetails';
@@ -36,6 +37,10 @@ function App() {
           <Topbar>
             <Navigation />
           </Topbar>
+
+          <div className="container">
+            <SearchBar />
+          </div>
 
           <Main className="container">
             <Switch>

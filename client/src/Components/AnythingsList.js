@@ -4,8 +4,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import FormattedDate from './FormattedDate';
 import { getAnythings, removeAnything } from '../api-services';
-import { DataText } from './StyledComponents';
-import { Button } from '../UIComponents';
+import { Button, DataText } from '../UIComponents';
 
 
 function AnythingItem({ value: item }) {

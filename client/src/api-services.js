@@ -59,3 +59,8 @@ export function updateTag(data) {
 export function removeTag(id) {
   return axios.delete(`/api/tag/${id}`);
 }
+
+// Search
+export function searchAll(term) {
+  return axios.get(`/api/search?term=${term}`);
+}

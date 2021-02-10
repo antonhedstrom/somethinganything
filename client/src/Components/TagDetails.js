@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
-import { TagTile } from './StyledComponents';
+import { Tag } from '../UIComponents';
 import ErrorContainer, { parseAxiosError } from '../Containers/Layout/ErrorContainer';
 import { getTag } from '../api-services';
 
@@ -21,9 +21,9 @@ function TagDetails({ id, ...rest }) {
     <div {...rest}>
       <Link style={{ float: 'right' }} to={`/tags/${tag.id}/edit`}>Edit</Link>
       <h3>{tag.title}</h3>
-      <TagTile color={tag.color}>
+      <Tag color={tag.color} size="large" inline>
         {tag.color}
-      </TagTile>
+      </Tag>
 
       <br />
       <br />

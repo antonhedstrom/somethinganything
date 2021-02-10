@@ -11,9 +11,10 @@ const StyledTagList = styled.div`
 `;
 
 const StyledTag = styled.div`
+  display: inline;
   border-radius: 5px;
-  background-color: ${({ theme, color }) => color || theme.color.N60};
-  color: ${({ theme, color }) => getFontColor(color || theme.color.N60)};
+  background-color: ${({ theme, color }) => color || theme.colors.N60};
+  color: ${({ theme, color }) => getFontColor(color || theme.colors.N60)};
   ${({ size }) => {
     switch(size) {
       case 'small':

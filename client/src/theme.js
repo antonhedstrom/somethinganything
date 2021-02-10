@@ -1,5 +1,5 @@
 module.exports = {
-  color: {
+  colors: {
     // Colors
     primary: '#008f95',
     secondary: '#EAE2B7',
