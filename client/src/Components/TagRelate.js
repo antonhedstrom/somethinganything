@@ -99,7 +99,6 @@ function TagRelate({ onSelected, exclude, ...rest }) {
   }, [setSearchTerm]);
 
   const handleKeyEvent = useCallback((event) => {
-    console.log(event);
     switch(event.keyCode) {
       case 13: // Enter
         saveAsNewTag();
@@ -145,7 +144,7 @@ function TagRelate({ onSelected, exclude, ...rest }) {
               size="small"
               color={suggestion.color}
               className="mr-1"
-              onClick={onSelected}
+              onClick={() => onSelected(suggestion)}
             >
               {suggestion.title}
             </Tag>

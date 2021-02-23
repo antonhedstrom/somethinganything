@@ -46,7 +46,6 @@ router.post('/', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
   const something = await res.locals.db.something.findByPk(req.params.id);
-  console.log("FOUND", something);
 
   if (req.body.addTags && Array.isArray(req.body.addTags)) {
     await something.addTags(req.body.addTags);

@@ -51,7 +51,6 @@ function TagDetails({ id, ...rest }) {
   useEffect(() => setTitle(tag.title), [tag.title]);
   useEffect(() => setColor(tag.color), [tag.color]);
   const saveForm = useCallback(() => {
-    console.log(title, color);
     mutate({
       id,
       title,
