@@ -25,12 +25,12 @@ router.use('/tag', tagRoutes);
 // Search all entities
 router.get('/search', async (req, res, next) => {
   const sequelizeLike = { [Op.like]: `%${req.query.term}%` };
-  const somethings = await res.locals.db.something.findAll({
+  const somethingsPromise = res.locals.db.something.findAll({
     attributes: ['id', 'title'],
     where: { title: sequelizeLike },
     limit: 10,
   });
-  const anythings = await res.locals.db.anything.findAll({
+  const anythingsPromise = res.locals.db.anything.findAll({
     where: {
       [Op.or]: [
         { value1: sequelizeLike },
@@ -39,11 +39,16 @@ router.get('/search', async (req, res, next) => {
     },
     limit: 10,
   });
-  const tags = await res.locals.db.tag.findAll({
+  const tagsPromise = res.locals.db.tag.findAll({
     attributes: ['id', 'title'],
     where: { title: sequelizeLike },
     limit: 10,
   });
+  const [
+    somethings,
+    anythings,
+    tags,
+  ] = await Promise.all([somethingsPromise, anythingsPromise, tagsPromise]);
   res.send({
     somethings,
     anythings,

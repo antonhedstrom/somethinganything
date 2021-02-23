@@ -38,14 +38,12 @@ function SearchBar({ ...rest }) {
     setTerm(event.target.value);
   }, [setTerm]);
   const handleKeyPress = useCallback(async (event) => {
-    console.log(event);
     if (event.charCode === 13) {
       if (term.length <= 2) {
         setResults(initialResults);
         return;
       }
       const {
-        error,
         data = {},
       } = await queryClient.fetchQuery(['search', term], () => searchAll(term));
       setResults(data);
@@ -59,6 +57,7 @@ function SearchBar({ ...rest }) {
   return (
     <div {...rest}>
       <StyledInput
+        block
         value={term}
         onChange={handleSearch}
         placeholder="Sök"

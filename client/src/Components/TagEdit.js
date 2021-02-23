@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import { Button, Input } from '../UIComponents';
+import { Button, Input, Tag } from '../UIComponents';
 import ErrorContainer, { parseAxiosError } from '../Containers/Layout/ErrorContainer';
 import { getTag, updateTag } from '../api-services';
 
@@ -73,18 +73,26 @@ function TagDetails({ id, ...rest }) {
 
       <Row className="container">
         <div className="one-third column">
+          Preview
+        </div>
+        <div className="four columns">
+          <Tag color={color}>{title}</Tag>
+        </div>
+      </Row>
+      <Row className="container">
+        <div className="one-third column">
           Title
         </div>
-        <div className="two-thirds column">
-          <Input type="text" value={title} onChange={handleTitleChange} />
+        <div className="four columns">
+          <Input type="text" value={title} block onChange={handleTitleChange} />
         </div>
       </Row>
       <Row className="container">
         <div className="one-third column">
           Color
         </div>
-        <div className="two-thirds column">
-          <Input type="color" value={color} onChange={handleColorChange} />
+        <div className="four columns">
+          <Input type="color" value={color} block onChange={handleColorChange} />
         </div>
       </Row>
       <Row className="container">

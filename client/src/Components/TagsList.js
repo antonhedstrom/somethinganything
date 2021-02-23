@@ -8,7 +8,7 @@ import { TagList, Tag } from '../UIComponents';
 function TagsList({ ...rest }) {
   const { isLoading, data: { data: tags } = {} } = useQuery(
     'tags',
-    () => getTags({ sort_by: 'createdAt.desc', limit: 10 }),
+    () => getTags({ sort_by: 'createdAt.desc', limit: 40 }),
   );
 
   if (isLoading) {

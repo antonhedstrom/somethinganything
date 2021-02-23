@@ -47,7 +47,8 @@ function SomethingAdd({ ...rest }) {
     <div {...rest}>
       <InputContainer>
         <Input
-          className="input large"
+          block
+          className="large"
           value={title}
           onChange={handleOnChange}
           onKeyPress={handleKeyPress}

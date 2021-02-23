@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = new express.Router();
 
-
 // Anything
 router.get('/', async (req, res, next) => {
   const orderArray = [];
@@ -45,6 +44,32 @@ router.post('/', async (req, res, next) => {
     somethingId: req.body.somethingId,
   });
   res.send(newAnything);
+});
+
+router.patch('/:id', async (req, res, next) => {
+  const anything = await res.locals.db.anything.findByPk(req.params.id);
+
+  if (req.body.addTags && Array.isArray(req.body.addTags)) {
+    await anything.addTags(req.body.addTags.map((tag) => ({ id: tag.id })));
+  }
+
+  if (req.body.removeTags && Array.isArray(req.body.removeTags)) {
+    await anything.removeTags(req.body.removeTags.map((tag) => ({ id: tag.id })));
+  }
+
+  const newData = {
+    type: req.body.type,
+    value1: req.body.value1,
+    value2: req.body.value2,
+  };
+
+  // Chech if there is something to change
+  let updatedAnything = anything;
+  if (Object.keys(newData).length > 0) {
+    updatedAnything = await anything.update(newData);
+  }
+
+  res.send(updatedAnything);
 });
 
 router.delete('/:id', async (req, res, next) => {

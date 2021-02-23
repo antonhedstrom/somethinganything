@@ -1,23 +1,32 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 
 import ErrorContainer, { parseAxiosError } from '../Containers/Layout/ErrorContainer';
 import AnythingAdd from '../Components/AnythingAdd';
-import { Tag } from '../UIComponents';
+import TagRelate from '../Components/TagRelate';
+import { Tag, StyledDate, Spinner } from '../UIComponents';
 import FormattedDate from './FormattedDate';
-import { getSomething } from '../api-services';
-
-const StyledDate = styled.div`
-  color: ${({ theme }) => theme.colors.N60};
-`;
+import { getSomething, updateSomething } from '../api-services';
 
 function SomethingDetails({ id, ...rest }) {
   const { isLoading, refetch, error, data: { data: something } = {} } = useQuery(['something', id], () => getSomething(id));
+  const { mutate: updateSomethingMutation } = useMutation(updateSomething, {
+    onSuccess: ({ data: updatedItem }) => {
+      refetch();
+    },
+  });
+
+  const clearTagRelation = useCallback((tagId) => {
+    updateSomethingMutation({ id, removeTags: [tagId] });
+  }, [updateSomethingMutation, id]);
+
+  const newTagRelation = useCallback((tag) => {
+    updateSomethingMutation({ id, addTags: [tag.id] });
+  }, [updateSomethingMutation, id]);
 
   if (isLoading) {
-    return null;
+    return <Spinner style={{ width: '100%', height: '80px' }} />;
   }
 
   if (error) {
@@ -27,22 +36,33 @@ function SomethingDetails({ id, ...rest }) {
   return (
     <div {...rest}>
       <h1>{something.title}</h1>
-      <StyledDate>
-        <FormattedDate value={something.createdAt} />
-        &nbsp;
-        (<FormattedDate value={something.updatedAt} />)
-      </StyledDate>
 
+      <div className="mb-3">
+        <StyledDate className="mr-3">
+          <FormattedDate value={something.createdAt} />
+        </StyledDate>
+        {something.createdAt !== something.updatedAt && (
+          <StyledDate>
+            (<FormattedDate value={something.updatedAt} />)
+          </StyledDate>
+        )}
+      </div>
+
+      <h2 className="mt-3">Tags</h2>
       {something.tags.map((tag) => (
-        <Link to={`/tags/${tag.id}`} key={`tag-${tag.id}`} >
-          <Tag color={tag.color}>
+        <Link to={`/tags/${tag.id}`} key={`tag-${tag.id}`} className="mr-1 mb-1" style={{ display: 'inline-block' }}>
+          <Tag
+            color={tag.color}
+            onDelete={() => clearTagRelation(tag.id)}
+          >
             {tag.title}
           </Tag>
         </Link>
       ))}
 
-      <br />
-      <h2>Related Anythings</h2>
+      <TagRelate className="mt-2" onSelected={(tag) => newTagRelation(tag)} exclude={something.tags.map((tag) => tag.id)} />
+
+      <h2 className="mt-3">Anythings</h2>
       <AnythingAdd somethingId={something.id} onComplete={refetch} />
       {something.anythings.map((anything) => (
         <div className="row" key={`something-anything-${anything.id}`}>

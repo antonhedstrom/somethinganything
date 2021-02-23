@@ -1,17 +1,23 @@
 import classnames from 'classnames';
+import styled from 'styled-components';
+
+const StyledInput = styled.input`
+  width: ${({ block }) => block ? '100%' : 'initial'};
+`;
 
 function Input({
   size,
   className,
   children,
+  block,
   ...rest
 }) {
 
   return (
-    <input className={classnames('input', className, size, {
+    <StyledInput block={block} className={classnames('input', className, size, {
     })} {...rest}>
       {children}
-    </input>
+    </StyledInput>
   );
 }
 

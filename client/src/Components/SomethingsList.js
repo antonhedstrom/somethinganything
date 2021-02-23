@@ -1,12 +1,14 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from 'styled-components';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import FormattedDate from './FormattedDate';
 import { getSomethings, removeSomething } from '../api-services';
-import { Button } from '../UIComponents';
+import { Button, TagList, Tag, Badge } from '../UIComponents';
 
 function SomethingItem({ value: item }) {
+  const theme = useContext(ThemeContext);
   const { mutate: deleteSomething, isLoading } = useMutation(removeSomething, {
     onSuccess: ({ data: removedItem }) => {
       const removedId = Number.parseInt(removedItem.id, 10);
@@ -29,9 +31,22 @@ function SomethingItem({ value: item }) {
   return (
     <tr>
       <td><Link to={`/somethings/${item.id}`}>{item.id}</Link></td>
-      <td><Link to={`/somethings/${item.id}`}>{item.title}</Link></td>
+      <td>
+        <Link to={`/somethings/${item.id}`}>{item.title}</Link>
+        <br/>
+        {item.tags.length > 0 && (
+          <TagList>
+            {item.tags.slice(0, 5).map((tag) => (
+              <Tag color={tag.color} size="small" key={`tag-${tag.id}`}>{tag.title}</Tag>
+            ))}
+          </TagList>
+        )}
+      </td>
       <td><FormattedDate value={item.createdAt} /></td>
-      <td><Button className="danger u-pull-right" onClick={deleteItem}>Ta&nbsp;bort</Button></td>
+      <td>
+        {item.anythings.length > 0 && <Badge color={theme.colors.N60}>{item.anythings.length}</Badge>}
+        <Button className="danger u-pull-right" onClick={deleteItem}>Ta&nbsp;bort</Button>
+      </td>
     </tr>
   );
 }

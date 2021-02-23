@@ -37,11 +37,37 @@ router.get('/:id', async (req, res, next) => {
   res.send(result);
 });
 
-router.post('', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const newSomething = await res.locals.db.something.create({
     title: req.body.title,
   });
   res.send(newSomething);
+});
+
+router.patch('/:id', async (req, res, next) => {
+  const something = await res.locals.db.something.findByPk(req.params.id);
+  console.log("FOUND", something);
+
+  if (req.body.addTags && Array.isArray(req.body.addTags)) {
+    await something.addTags(req.body.addTags);
+  }
+
+  if (req.body.removeTags && Array.isArray(req.body.removeTags)) {
+    await something.removeTags(req.body.removeTags);
+  }
+
+  const newData = {
+    title: req.body.title,
+    private: typeof req.body.private === 'boolean' ? req.body.private : undefined,
+  };
+
+  // Chech if there is something to change
+  let updatedSomething = something;
+  if (Object.keys(newData).length > 0) {
+    updatedSomething = await something.update(newData);
+  }
+
+  res.send(updatedSomething);
 });
 
 router.delete('/:id', async (req, res, next) => {

@@ -4,6 +4,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400");
 // @import "~turtle-ui/dist/styles.css";
 @import "./turtle.css";
+@import "./spinner.css";
 
 :root {
   --content-background: #e7ebee;
@@ -71,6 +72,22 @@
 .no-text-decoration {
   text-decoration: none;
 }
+
+$spacing-small: 0.5rem;
+$spacing-medium: 1rem;
+$spacing-large: 2rem;
+.mt-1 { margin-top: $spacing-small; }
+.mt-2 { margin-top: $spacing-medium; }
+.mt-3 { margin-top: $spacing-large; }
+.mr-1 { margin-right: $spacing-small; }
+.mr-2 { margin-right: $spacing-medium; }
+.mr-3 { margin-right: $spacing-large; }
+.mb-1 { margin-bottom: $spacing-small; }
+.mb-2 { margin-bottom: $spacing-medium; }
+.mb-3 { margin-bottom: $spacing-large; }
+.ml-1 { margin-left: $spacing-small; }
+.ml-2 { margin-left: $spacing-medium; }
+.ml-3 { margin-left: $spacing-large; }
 
 // .vertical-align {
 //   display: flex;
