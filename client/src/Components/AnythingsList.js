@@ -30,9 +30,6 @@ function AnythingItem({ value: item }) {
   return (
     <tr>
       <td>
-        <Link to={`/anythings/${item.id}`}>{item.id}</Link>
-      </td>
-      <td>
         <Link to={`/anythings/${item.id}`}>{item.type}</Link>
       </td>
       <DataText>{item.value1}</DataText>
@@ -57,7 +54,6 @@ function AnythingsList({ ...rest }) {
       <table className="u-full-width">
         <thead>
           <tr>
-            <th>#</th>
             <th>Type</th>
             <th>Value #1</th>
             <th>Value #2</th>

@@ -21,21 +21,6 @@ const FormContainer = styled.div`
   flex-direction: row;
 `;
 
-function TagRelateItem({ tag, onClick, ...rest }) {
-  const handleOnClick = useCallback(() => onClick(tag), [onClick, tag]);
-  return (
-    <Tag
-      size="small"
-      color={tag.color}
-      className="mr-1"
-      onClick={handleOnClick}
-      {...rest}
-    >
-      {tag.title}
-    </Tag>
-  );
-}
-
 function TagRelate({ onSelected, exclude, ...rest }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [isValidTerm, setValidTerm] = useState(false);

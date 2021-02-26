@@ -30,7 +30,6 @@ function SomethingItem({ value: item }) {
 
   return (
     <tr>
-      <td><Link to={`/somethings/${item.id}`}>{item.id}</Link></td>
       <td>
         <Link to={`/somethings/${item.id}`}>{item.title}</Link>
         <br/>
@@ -65,7 +64,6 @@ function SomethingsList({ ...rest }) {
       <table className="u-full-width">
         <thead>
           <tr>
-            <th>#</th>
             <th>Title</th>
             <th>Created</th>
             <th></th>
