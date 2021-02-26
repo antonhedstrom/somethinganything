@@ -17,6 +17,8 @@ function SomethingAdd({ ...rest }) {
   const { mutate, isLoading } = useMutation(createSomething, {
     onSuccess: ({ data: createdItem }) => {
       queryClient.setQueryData('somethings', (cachedQuery) => {
+        createdItem.tags = []; // Make sure match cache
+        createdItem.anythings = []; // Make sure match cache
         return {
           ...cachedQuery,
           data: [createdItem, ...cachedQuery.data],
@@ -38,8 +40,17 @@ function SomethingAdd({ ...rest }) {
     setTitle(event.target.value);
   }, [setTitle]);
   const handleKeyPress = useCallback((event) => {
-    if (event.charCode === 13) {
-      doSave();
+    const char = event.which || event.charCode;
+    switch (char) {
+      case 13: // Enter
+        doSave();
+        break;
+      case 27: // Escape
+        setTitle('');
+        event.target.blur();
+        break;
+      default:
+        break;
     }
   }, [doSave]);
 

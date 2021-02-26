@@ -40,7 +40,8 @@ function TagAdd({ ...rest }) {
     setTitle(event.target.value);
   }, [setTitle]);
   const handleKeyPress = useCallback((event) => {
-    if (event.charCode === 13) {
+    const char = event.which || event.charCode;
+    if (char === 13) {
       doSave();
     }
   }, [doSave]);

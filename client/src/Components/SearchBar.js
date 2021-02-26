@@ -38,7 +38,8 @@ function SearchBar({ ...rest }) {
     setTerm(event.target.value);
   }, [setTerm]);
   const handleKeyPress = useCallback(async (event) => {
-    if (event.charCode === 13) {
+    const char = event.which || event.keyCode;
+    if (char === 13) {
       if (term.length <= 2) {
         setResults(initialResults);
         return;

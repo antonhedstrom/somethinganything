@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useQuery, useQueryClient, useMutation } from 'react-query';
+import { useQueryClient, useMutation } from 'react-query';
 
 import { getRandomColor } from '../constants';
 import { Input, Button, Tag } from '../UIComponents';
@@ -84,7 +84,8 @@ function TagRelate({ onSelected, exclude, ...rest }) {
   }, [setSearchTerm]);
 
   const handleKeyEvent = useCallback((event) => {
-    switch(event.keyCode) {
+    const char = event.which || event.keyCode;
+    switch (char) {
       case 13: // Enter
         saveAsNewTag();
         break;
