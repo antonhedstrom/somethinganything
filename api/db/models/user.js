@@ -4,7 +4,7 @@ const crypto = require('crypto');
 
 // https://medium.com/@benjaminpwagner/using-sequelize-hooks-and-crypto-to-encrypt-user-passwords-5cf1a27513d9
 module.exports = (sequelize) => {
-  const User = sequelize.define('user', {
+  const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -50,6 +50,10 @@ module.exports = (sequelize) => {
   User.prototype.correctPassword = function(enteredPassword) {
     return User.encryptPassword(enteredPassword, this.salt()) === this.password();
   }
+
+  User.associate = (models) => {
+    models.User.hasMany(models.Something);
+  };
 
   return User;
 };

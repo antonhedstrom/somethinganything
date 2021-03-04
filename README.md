@@ -55,6 +55,12 @@ Then edit/add the .env file and set the DB Connectionstring:
 DB_CONNECTIONSTRING=postgres://postgres:docker@localhost:5678/somethinganything
 ```
 
+### Create migration
+
+```
+npx sequelize-cli migration:generate --name my-name
+```
+
 ## Start app
 
 The client is being built using [Create React App](https://create-react-app.dev). To start server and watching files+hot reload of client side code:

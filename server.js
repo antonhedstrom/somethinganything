@@ -34,7 +34,6 @@ const app = express();
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 
-
   app.listen(config.PORT, () => {
     console.log(`🚀  Server is listening on port ${config.PORT}`);
   });

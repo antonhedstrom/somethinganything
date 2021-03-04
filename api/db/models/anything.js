@@ -2,7 +2,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  const Anything = sequelize.define('anything', {
+  const Anything = sequelize.define('Anything', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -12,6 +12,10 @@ module.exports = (sequelize) => {
     value1: DataTypes.STRING, // This is generic, can be longitude for a position, markdown for a text type and so on...
     value2: DataTypes.STRING,
   });
+
+  Anything.associate = (models) => {
+    models.Anything.belongsTo(models.Something);
+  };
 
   return Anything;
 };
