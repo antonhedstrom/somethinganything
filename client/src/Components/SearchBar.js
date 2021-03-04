@@ -72,7 +72,10 @@ function SearchBar({ ...rest }) {
             <>
               <h5>Somethings</h5>
               {results.somethings.map((something) => (
-                <SearchHitLink to={`/somethings/${something.id}`}>
+                <SearchHitLink
+                  key={`something-${something.id}`}
+                  to={`/somethings/${something.id}`}
+                >
                   {something.title}
                 </SearchHitLink>
               ))}
@@ -83,8 +86,13 @@ function SearchBar({ ...rest }) {
             <>
               <h5>Anythings</h5>
               {results.anythings.map((anything) => (
-                <SearchHitLink to={`/anythings/${anything.id}`}>
-                  {anything.title}
+                <SearchHitLink
+                  key={`anything-${anything.id}`}
+                  to={`/anythings/${anything.id}`}
+                >
+                  {anything.type}:
+                  {anything.value1.substring(0, 20)}...
+                  {anything.value2.substring(0, 20)}...
                 </SearchHitLink>
               ))}
             </>
@@ -94,7 +102,10 @@ function SearchBar({ ...rest }) {
             <>
               <h5>Tags</h5>
               {results.tags.map((tag) => (
-                <SearchHitLink to={`/tags/${tag.id}`}>
+                <SearchHitLink
+                  key={`tag-${tag.id}`}
+                  to={`/tags/${tag.id}`}
+                >
                   {tag.title}
                 </SearchHitLink>
               ))}

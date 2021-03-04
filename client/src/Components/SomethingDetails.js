@@ -1,19 +1,40 @@
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useHistory } from 'react-router-dom';
 
 import ErrorContainer, { parseAxiosError } from '../Containers/Layout/ErrorContainer';
 import AnythingAdd from '../Components/AnythingAdd';
 import TagRelate from '../Components/TagRelate';
-import { Tag, StyledDate, Spinner } from '../UIComponents';
+import { Button, StyledDate, Spinner, Tag } from '../UIComponents';
 import FormattedDate from './FormattedDate';
-import { getSomething, updateSomething } from '../api-services';
+import { getSomething, updateSomething, removeSomething } from '../api-services';
 
 function SomethingDetails({ id, ...rest }) {
-  const { isLoading, refetch, error, data: { data: something } = {} } = useQuery(['something', id], () => getSomething(id));
+  const {
+    isLoading,
+    refetch,
+    error,
+    data: { data: something = {} } = {},
+  } = useQuery(['something', id], () => getSomething(id));
+
   const { mutate: updateSomethingMutation } = useMutation(updateSomething, {
     onSuccess: ({ data: updatedItem }) => {
       refetch();
+    },
+  });
+  const history = useHistory();
+  const queryClient = useQueryClient();
+  const { mutate: deleteSomething, isLoading: isDeleting } = useMutation(removeSomething, {
+    onSuccess: ({ data: removedItem }) => {
+      const removedId = Number.parseInt(removedItem.id, 10);
+      queryClient.setQueryData('somethings', (cachedQuery) => {
+        return {
+          ...cachedQuery,
+          data: cachedQuery.data.filter((item) => item.id !== removedId),
+        };
+      });
+      history.goBack();
     },
   });
 
@@ -25,6 +46,14 @@ function SomethingDetails({ id, ...rest }) {
     updateSomethingMutation({ id, addTags: [tag.id] });
   }, [updateSomethingMutation, id]);
 
+  const deleteItem = useCallback(() => {
+    if (isLoading) {
+      return;
+    }
+    deleteSomething(something.id);
+  }, [deleteSomething, isLoading, something.id]);
+
+
   if (isLoading) {
     return <Spinner style={{ width: '100%', height: '80px' }} />;
   }
@@ -33,8 +62,17 @@ function SomethingDetails({ id, ...rest }) {
     return <ErrorContainer {...parseAxiosError(error)} />;
   }
 
+
   return (
     <div {...rest}>
+      <Button
+        className="danger u-pull-right"
+        disabled={isDeleting}
+        onClick={deleteItem}
+      >
+        Ta&nbsp;bort
+      </Button>
+
       <h1>{something.title}</h1>
 
       <div className="mb-3">

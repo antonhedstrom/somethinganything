@@ -17,8 +17,8 @@ function SomethingAdd({ ...rest }) {
   const { mutate, isLoading } = useMutation(createSomething, {
     onSuccess: ({ data: createdItem }) => {
       queryClient.setQueryData('somethings', (cachedQuery) => {
-        createdItem.tags = []; // Make sure match cache
-        createdItem.anythings = []; // Make sure match cache
+        createdItem.Tags = []; // Make sure match cache
+        createdItem.Anythings = []; // Make sure match cache
         return {
           ...cachedQuery,
           data: [createdItem, ...cachedQuery.data],

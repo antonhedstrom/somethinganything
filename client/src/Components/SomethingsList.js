@@ -1,32 +1,14 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from 'styled-components';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 
 import FormattedDate from './FormattedDate';
-import { getSomethings, removeSomething } from '../api-services';
-import { Button, TagList, Tag, Badge } from '../UIComponents';
+import { getSomethings } from '../api-services';
+import { TagList, Tag, Badge } from '../UIComponents';
 
 function SomethingItem({ value: item }) {
   const theme = useContext(ThemeContext);
-  const { mutate: deleteSomething, isLoading } = useMutation(removeSomething, {
-    onSuccess: ({ data: removedItem }) => {
-      const removedId = Number.parseInt(removedItem.id, 10);
-      queryClient.setQueryData('somethings', (cachedQuery) => {
-        return {
-          ...cachedQuery,
-          data: cachedQuery.data.filter((item) => item.id !== removedId),
-        };
-      });
-    },
-  });
-  const queryClient = useQueryClient();
-  const deleteItem = useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-    deleteSomething(item.id);
-  }, [deleteSomething, isLoading, item.id]);
 
   return (
     <tr>
@@ -44,7 +26,6 @@ function SomethingItem({ value: item }) {
       <td><FormattedDate value={item.createdAt} /></td>
       <td>
         {item.Anythings.length > 0 && <Badge color={theme.colors.N60}>{item.Anythings.length}</Badge>}
-        <Button className="danger u-pull-right" onClick={deleteItem}>Ta&nbsp;bort</Button>
       </td>
     </tr>
   );

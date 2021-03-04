@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const StyledFooter = styled.div`
   color: ${({ theme }) => theme.colors.N60};
   padding-top: ${({ theme }) => theme.spacing.medium};
+  padding-bottom: ${({ theme }) => theme.spacing.large};
   text-align: center;
 `;
 

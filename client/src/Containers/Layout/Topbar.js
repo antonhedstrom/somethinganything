@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const Container = styled.div`
   padding: 1em 0 0;
   background-color: #003049;
-  background-image: url("/hero.jpg");
   background-size: cover;
   background-position: center;
   color: white;

@@ -27,11 +27,11 @@ function TagAdd({ ...rest }) {
     },
   });
   const doSave = useCallback(() => {
-    if (isLoading) {
+    if (isLoading || title.trim() === '') {
       return;
     }
     mutate({
-      title,
+      title: title.trim(),
       color: getRandomColor(),
     });
   }, [mutate, isLoading, title]);
