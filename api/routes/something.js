@@ -18,8 +18,8 @@ router.get('/', async (req, res, next) => {
   } else {
     orderArray.push(['createdAt', 'DESC']);
   }
-  const result = await res.locals.db.something.findAll({
-    include: [res.locals.db.anything, res.locals.db.tag],
+  const result = await res.locals.db.Something.findAll({
+    include: [res.locals.db.Anything, res.locals.db.Tag],
     order: orderArray,
     limit: req.query.limit || 10,
   });
@@ -27,8 +27,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-  const result = await res.locals.db.something.findByPk(req.params.id, {
-    include: [res.locals.db.anything, res.locals.db.tag],
+  const result = await res.locals.db.Something.findByPk(req.params.id, {
+    include: [res.locals.db.Anything, res.locals.db.Tag],
   });
   if (!result) {
     res.send(404);
@@ -38,14 +38,14 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  const newSomething = await res.locals.db.something.create({
+  const newSomething = await res.locals.db.Something.create({
     title: req.body.title,
   });
   res.send(newSomething);
 });
 
 router.patch('/:id', async (req, res, next) => {
-  const something = await res.locals.db.something.findByPk(req.params.id);
+  const something = await res.locals.db.Something.findByPk(req.params.id);
 
   if (req.body.addTags && Array.isArray(req.body.addTags)) {
     await something.addTags(req.body.addTags);
@@ -71,7 +71,7 @@ router.patch('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    await res.locals.db.something.destroy({
+    await res.locals.db.Something.destroy({
       where: { id: req.params.id },
     });
     res.status(200).json({

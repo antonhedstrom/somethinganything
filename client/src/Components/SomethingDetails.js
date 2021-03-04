@@ -49,7 +49,7 @@ function SomethingDetails({ id, ...rest }) {
       </div>
 
       <h2 className="mt-3">Tags</h2>
-      {something.tags.map((tag) => (
+      {something.Tags.map((tag) => (
         <Link to={`/tags/${tag.id}`} key={`tag-${tag.id}`} className="mr-1 mb-1" style={{ display: 'inline-block' }}>
           <Tag
             color={tag.color}
@@ -60,11 +60,11 @@ function SomethingDetails({ id, ...rest }) {
         </Link>
       ))}
 
-      <TagRelate className="mt-2" onSelected={(tag) => newTagRelation(tag)} exclude={something.tags.map((tag) => tag.id)} />
+      <TagRelate className="mt-2" onSelected={(tag) => newTagRelation(tag)} exclude={something.Tags.map((tag) => tag.id)} />
 
       <h2 className="mt-3">Anythings</h2>
       <AnythingAdd somethingId={something.id} onComplete={refetch} />
-      {something.anythings.map((anything) => (
+      {something.Anythings.map((anything) => (
         <div className="row" key={`something-anything-${anything.id}`}>
           <div className="three columns">
             <i>{anything.type}</i>

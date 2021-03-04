@@ -1,6 +1,5 @@
 const path = require('path');
 
-
 const express = require('express');
 const { Op } = require('sequelize');
 
@@ -15,7 +14,7 @@ router.use('/anything', anythingRoutes);
 router.use('/tag', tagRoutes);
 
 // router.get('/users/create', async (req, res, next) => {
-  //   const newUser = await res.locals.db.user.create({
+  //   const newUser = await res.locals.db.User.create({
 //     username: req.query.username,
 //     password: req.query.password,
 //   });
@@ -25,12 +24,12 @@ router.use('/tag', tagRoutes);
 // Search all entities
 router.get('/search', async (req, res, next) => {
   const sequelizeLike = { [Op.like]: `%${req.query.term}%` };
-  const somethingsPromise = res.locals.db.something.findAll({
+  const somethingsPromise = res.locals.db.Something.findAll({
     attributes: ['id', 'title'],
     where: { title: sequelizeLike },
     limit: 10,
   });
-  const anythingsPromise = res.locals.db.anything.findAll({
+  const anythingsPromise = res.locals.db.Anything.findAll({
     where: {
       [Op.or]: [
         { value1: sequelizeLike },
@@ -39,7 +38,7 @@ router.get('/search', async (req, res, next) => {
     },
     limit: 10,
   });
-  const tagsPromise = res.locals.db.tag.findAll({
+  const tagsPromise = res.locals.db.Tag.findAll({
     attributes: ['id', 'title'],
     where: { title: sequelizeLike },
     limit: 10,

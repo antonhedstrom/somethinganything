@@ -43,7 +43,7 @@ function TagDetails({ id, ...rest }) {
       <h4>Somethings</h4>
       <br />
       <ul>
-        {tag.somethings.map((something) => (
+        {tag.Somethings.map((something) => (
           <li key={`tag-something-${something.id}`}>
             <Link to={`/somethings/${something.id}`}>
               {something.title}

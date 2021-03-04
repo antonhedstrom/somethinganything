@@ -33,9 +33,9 @@ function SomethingItem({ value: item }) {
       <td>
         <Link to={`/somethings/${item.id}`}>{item.title}</Link>
         <br/>
-        {item.tags.length > 0 && (
+        {item.Tags.length > 0 && (
           <TagList>
-            {item.tags.slice(0, 5).map((tag) => (
+            {item.Tags.slice(0, 5).map((tag) => (
               <Tag color={tag.color} size="small" key={`tag-${tag.id}`}>{tag.title}</Tag>
             ))}
           </TagList>
@@ -43,7 +43,7 @@ function SomethingItem({ value: item }) {
       </td>
       <td><FormattedDate value={item.createdAt} /></td>
       <td>
-        {item.anythings.length > 0 && <Badge color={theme.colors.N60}>{item.anythings.length}</Badge>}
+        {item.Anythings.length > 0 && <Badge color={theme.colors.N60}>{item.Anythings.length}</Badge>}
         <Button className="danger u-pull-right" onClick={deleteItem}>Ta&nbsp;bort</Button>
       </td>
     </tr>

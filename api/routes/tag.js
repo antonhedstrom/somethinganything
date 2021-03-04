@@ -24,7 +24,7 @@ router.get('/', async (req, res, next) => {
     orderArray.push(['createdAt', 'DESC']);
   }
 
-  const result = await res.locals.db.tag.findAll({
+  const result = await res.locals.db.Tag.findAll({
     attributes: ['id', 'title', 'color'],
     order: orderArray,
     limit: req.query.limit || 10,
@@ -34,8 +34,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-  const result = await res.locals.db.tag.findByPk(req.params.id, {
-    include: [res.locals.db.something],
+  const result = await res.locals.db.Tag.findByPk(req.params.id, {
+    include: [res.locals.db.Something],
   });
   if (!result) {
     res.send(404);
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-  const newTag = await res.locals.db.tag.create({
+  const newTag = await res.locals.db.Tag.create({
     title: req.body.title,
     color: req.body.color,
   });
@@ -53,7 +53,7 @@ router.post('/', async (req, res, next) => {
 });
 
 router.patch('/:id', async (req, res, next) => {
-  const updatedTag = await res.locals.db.tag.update({
+  const updatedTag = await res.locals.db.Tag.update({
     title: req.body.title,
     color: req.body.color,
   }, { where: { id: req.params.id } });
@@ -62,7 +62,7 @@ router.patch('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    await res.locals.db.tag.destroy({
+    await res.locals.db.Tag.destroy({
       where: { id: req.params.id },
     });
     res.status(200).json({
