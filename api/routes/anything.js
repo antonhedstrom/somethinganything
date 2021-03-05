@@ -41,7 +41,7 @@ router.post('/', async (req, res, next) => {
     type: req.body.type,
     value1: req.body.value1,
     value2: req.body.value2,
-    somethingId: req.body.somethingId,
+    SomethingId: req.body.SomethingId,
   });
   res.send(newAnything);
 });

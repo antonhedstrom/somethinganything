@@ -48,7 +48,7 @@ function AnythingAdd({ somethingId, onComplete, ...rest }) {
       type,
       value1,
       value2,
-      somethingId,
+      SomethingId: somethingId,
     });
   }, [mutate, isLoading, somethingId, type, value1, value2]);
 
