@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router-dom';
@@ -9,6 +9,8 @@ import TagRelate from '../Components/TagRelate';
 import { Button, StyledDate, Spinner, Tag } from '../UIComponents';
 import FormattedDate from './FormattedDate';
 import { getSomething, updateSomething, removeSomething } from '../api-services';
+
+const SUPPORTED_ANYTHING_TYPES = ['TEXT', 'URL', 'IMAGE'];
 
 function SomethingDetails({ id, ...rest }) {
   const {
@@ -53,6 +55,19 @@ function SomethingDetails({ id, ...rest }) {
     deleteSomething(something.id);
   }, [deleteSomething, isLoading, something.id]);
 
+  const anythingsByType = useMemo(() => {
+    if (isLoading || !something.Anythings) {
+      return [];
+    }
+    return something.Anythings.reduce((acc, anything) => {
+      const type = SUPPORTED_ANYTHING_TYPES.includes(anything.type) ? anything.type : 'UNSUPPORTED';
+      if (!acc[type]) {
+        acc[type] = [];
+      }
+      acc[type].push(anything);
+      return acc;
+    }, {});
+  }, [isLoading, something.Anythings]);
 
   if (isLoading) {
     return <Spinner style={{ width: '100%', height: '80px' }} />;
@@ -70,7 +85,7 @@ function SomethingDetails({ id, ...rest }) {
         disabled={isDeleting}
         onClick={deleteItem}
       >
-        Ta&nbsp;bort
+        &#10006;
       </Button>
 
       <h1>{something.title}</h1>
@@ -86,7 +101,39 @@ function SomethingDetails({ id, ...rest }) {
         )}
       </div>
 
-      <h2 className="mt-3">Tags</h2>
+      {anythingsByType.IMAGE && anythingsByType.IMAGE.map((anything) => {
+        return (
+          <img
+            src={anything.value1}
+            alt={anything.value2 || 'Image'}
+            key={`anything-img-${anything.id}`}
+            className="ml-2 u-pull-right"
+            style={{
+              width: '35%',
+              minWidth: '200px',
+            }}
+          />
+        );
+      })}
+
+      {anythingsByType.URL && anythingsByType.URL.map((anything) => {
+        const httpLink = anything.value1.startsWith('http') ? anything.value1 : `https://${anything.value1}`;
+        const target = new URL(httpLink);
+        const linkName = anything.value2 && anything.value2.trim() !== '' ? anything.value2 : target.hostname.replace('www.', '');
+        return (
+          <a key={`anything-url-${anything.id}`} href={target.href} target="_blank" rel="noreferrer" className="mr-3 no-wrap">
+            {linkName}
+          </a>
+        );
+      })}
+      <br />
+
+      {anythingsByType.TEXT && anythingsByType.TEXT.map((anything) => (
+        <div key={`anything-text-${anything.id}`}>{anything.value1}</div>
+      ))}
+      <br />
+      <br />
+
       {something.Tags.map((tag) => (
         <Link to={`/tags/${tag.id}`} key={`tag-${tag.id}`} className="mr-1 mb-1" style={{ display: 'inline-block' }}>
           <Tag
@@ -100,9 +147,8 @@ function SomethingDetails({ id, ...rest }) {
 
       <TagRelate className="mt-2" onSelected={(tag) => newTagRelation(tag)} exclude={something.Tags.map((tag) => tag.id)} />
 
-      <h2 className="mt-3">Anythings</h2>
-      <AnythingAdd somethingId={something.id} onComplete={refetch} />
-      {something.Anythings.map((anything) => (
+      <h5 className="mt-3">Unsupported Anythings</h5>
+      {anythingsByType.UNSUPPORTED && anythingsByType.UNSUPPORTED.map((anything) => (
         <div className="row" key={`something-anything-${anything.id}`}>
           <div className="three columns">
             <i>{anything.type}</i>
@@ -117,6 +163,7 @@ function SomethingDetails({ id, ...rest }) {
           </div>
         </div>
       ))}
+      <AnythingAdd somethingId={something.id} onComplete={refetch} />
     </div>
   );
 }
