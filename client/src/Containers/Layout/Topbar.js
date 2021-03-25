@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   padding: 1em 0 0;
-  background-color: #003049;
   background-size: cover;
   background-position: center;
   color: white;
+  background: linear-gradient(135deg, rgb(0, 48, 73) 0%, rgb(9 12 35) 100%);
 `;
 
 const Title = styled.h1`
