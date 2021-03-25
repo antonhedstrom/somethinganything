@@ -3,30 +3,11 @@ import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import FormattedDate from './FormattedDate';
-import { getAnythings, removeAnything } from '../api-services';
-import { Button, DataText } from '../UIComponents';
+import { getAnythings } from '../api-services';
+import { DataText } from '../UIComponents';
 
 
 function AnythingItem({ value: item }) {
-  const { mutate: deleteAnything, isLoading } = useMutation(removeAnything, {
-    onSuccess: ({ data: removedItem }) => {
-      const removedId = Number.parseInt(removedItem.id, 10);
-      queryClient.setQueryData('anythings', (cachedQuery) => {
-        return {
-          ...cachedQuery,
-          data: cachedQuery.data.filter((item) => item.id !== removedId),
-        };
-      });
-    },
-  });
-  const queryClient = useQueryClient();
-  const deleteItem = useCallback(() => {
-    if (isLoading) {
-      return;
-    }
-    deleteAnything(item.id);
-  }, [deleteAnything, isLoading, item.id]);
-
   return (
     <tr>
       <td>
@@ -34,8 +15,7 @@ function AnythingItem({ value: item }) {
       </td>
       <DataText>{item.value1}</DataText>
       <DataText>{item.value2}</DataText>
-      <td><FormattedDate value={item.createdAt} /></td>
-      <td><Button className="danger u-pull-right" onClick={deleteItem}>Ta&nbsp;bort</Button></td>
+      <td className="no-wrap"><FormattedDate value={item.createdAt} /></td>
     </tr>
   );
 }
@@ -58,7 +38,6 @@ function AnythingsList({ ...rest }) {
             <th>Value #1</th>
             <th>Value #2</th>
             <th>Created</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>

@@ -23,7 +23,7 @@ function SomethingItem({ value: item }) {
           </TagList>
         )}
       </td>
-      <td><FormattedDate value={item.createdAt} /></td>
+      <td className="no-wrap"><FormattedDate value={item.createdAt} /></td>
       <td>
         {item.Anythings.length > 0 && <Badge color={theme.colors.N60}>{item.Anythings.length}</Badge>}
       </td>
@@ -34,7 +34,7 @@ function SomethingItem({ value: item }) {
 function SomethingsList({ ...rest }) {
   const { isLoading, data: { data: somethings = [] } = {} } = useQuery(
     'somethings',
-    () => getSomethings({ sort_by: 'createdAt.desc', limit: 10 }),
+    () => getSomethings({ sort_by: 'createdAt.desc', limit: 30 }),
   );
 
   if (isLoading) {

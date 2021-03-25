@@ -9,6 +9,7 @@ import Spinner from './Spinner';
 
 export const DataText = styled.td`
   font-family: Courier;
+  word-break: break-all;
 `;
 
 export const StyledDate = styled.span`

@@ -47,7 +47,7 @@ function AnythingDetails({ id, ...rest }) {
 
   return (
     <div {...rest}>
-      <Button className="danger u-pull-right" onClick={deleteItem}>Ta bort</Button>
+      <Button className="danger u-pull-right" onClick={deleteItem}>&#10006;</Button>
       <h3>{anything.title}</h3>
       <Type>{anything.type}</Type>
       <Data>
