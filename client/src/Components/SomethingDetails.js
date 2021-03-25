@@ -60,7 +60,8 @@ function SomethingDetails({ id, ...rest }) {
       return [];
     }
     return something.Anythings.reduce((acc, anything) => {
-      const type = SUPPORTED_ANYTHING_TYPES.includes(anything.type) ? anything.type : 'UNSUPPORTED';
+      const trimmedType = anything.type.trim();
+      const type = SUPPORTED_ANYTHING_TYPES.includes(trimmedType) ? trimmedType : 'UNSUPPORTED';
       if (!acc[type]) {
         acc[type] = [];
       }
